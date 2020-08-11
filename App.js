@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
-// You can import from local files
 
-import { Card } from 'react-native-paper';
 import Calculator from './components/Calculator';
 import Notes from './components/Notes';
 export default function App() {
@@ -14,21 +12,21 @@ export default function App() {
       <View style={styles.buttonContainer}>
         <View style={styles.buttonView}>
           <Button
-            icon="calculator"
+            
             mode="contained"
             onPress={() => setMode('calculator')}>
             Calculator
           </Button>
         </View>
         <View style={styles.buttonView}>
-          <Button icon="note" mode="contained" onPress={() => setMode('note')}>
+          <Button mode="contained" onPress={() => setMode('note')}>
             Notes
           </Button>
         </View>
       </View>
-      <Card style={styles.card}>
+      <View style={styles.card}>
         {mode === 'calculator' ? <Calculator /> : <Notes />}
-      </Card>
+      </View>
     </View>
   );
 }
@@ -41,7 +39,8 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   card: {
-
+    justifyContent:'center',
+    alignItems:'center',
   },
   buttonContainer: {
     flexDirection: 'row',
