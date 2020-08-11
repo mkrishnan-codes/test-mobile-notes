@@ -1,6 +1,6 @@
 export const initialState = {
 	active: [], completed: [], others: [],
-	currentNote: '', currentStatus: ''
+	currentNote: '', currentStatus: '', showList:false
 }
 const getObjWithId = (payload) => {
 	let obj = { ...payload, id: new Date().getTime() }
@@ -11,19 +11,19 @@ export const NotesReducer = (state, action) => {
 		case 'active': {
 			const { active, completed, others } = state;
 			active.push(getObjWithId(action.payload))
-			return { 'active': [...active], 'completed': [...completed], 'others': [...others] };
+			return { 'active': [...active], 'completed': [...completed], 'others': [...others], showList: true };
 
 		}
 		case 'completed': {
 			const { active, completed, others } = state;
 			completed.push(getObjWithId(action.payload))
-			return { 'active': [...active], 'completed': [...completed], 'others': [...others] };
+			return { 'active': [...active], 'completed': [...completed], 'others': [...others], showList: true };
 
 		}
 		default: {
 			const { active, completed, others } = state;
 			others.push(getObjWithId(action.payload))
-			return { 'active': [...active], 'completed': [...completed], 'others': [...others] };
+			return { 'active': [...active], 'completed': [...completed], 'others': [...others], showList: true };
 		}
 	}
 }

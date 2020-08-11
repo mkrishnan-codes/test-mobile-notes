@@ -10,19 +10,17 @@ export default function App() {
   return (
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
-        <View style={styles.buttonView}>
-          <Button
-            
-            mode="contained"
-            onPress={() => setMode('calculator')}>
-            Calculator
+        {mode === 'note' && <Button
+          mode="contained"
+          style={styles.buttonContainer}
+          onPress={() => setMode('calculator')}>
+          View calculator
           </Button>
-        </View>
-        <View style={styles.buttonView}>
-          <Button mode="contained" onPress={() => setMode('note')}>
-            Notes
-          </Button>
-        </View>
+        }
+        {
+          mode === 'calculator' && <Button style={styles.buttonContainer} mode="contained" onPress={() => setMode('note')}>
+           View my notes
+          </Button>}
       </View>
       <View style={styles.card}>
         {mode === 'calculator' ? <Calculator /> : <Notes />}
@@ -39,15 +37,12 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   card: {
-    justifyContent:'center',
-    alignItems:'center',
-    height:300,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 300,
   },
   buttonContainer: {
-    flexDirection: 'row',
-    paddingHorizontal: 10,
     width: '100%',
-    justifyContent: 'space-between',
   },
   buttonView: {
     width: '50%',

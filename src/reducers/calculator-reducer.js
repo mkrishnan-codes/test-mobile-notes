@@ -1,24 +1,16 @@
 export const initialState = {
-	number1: '',
-	number2: '',
 	operand: '+',
 	result: '',
 	operations: 0,
 };
 export const CalculatorReducer = (state, action) => {
 	switch (action.type) {
-		case 'set_number1': {
-			return { ...state, number1: action.payload };
-		}
-		case 'set_number2': {
-			return { ...state, number2: action.payload };
-		}
 		case 'add': {
 			const operations = state.operations + 1;
 			return {
 				...state,
 				operand: '+',
-				result: Number(state.number1) + Number(state.number2),
+				result: Number(action.payload.number1) + Number(action.payload.number2),
 				operations,
 			};
 		}
@@ -28,7 +20,7 @@ export const CalculatorReducer = (state, action) => {
 			return {
 				...state,
 				operand: '-',
-				result: Number(state.number1) - Number(state.number2),
+				result: Number(action.payload.number1) - Number(action.payload.number2),
 				operations,
 			};
 		}
@@ -38,7 +30,7 @@ export const CalculatorReducer = (state, action) => {
 			return {
 				...state,
 				operand: '*',
-				result: Number(state.number1) * Number(state.number2),
+				result: Number(action.payload.number1) * Number(action.payload.number2),
 				operations,
 			};
 		}
@@ -48,7 +40,7 @@ export const CalculatorReducer = (state, action) => {
 			return {
 				...state,
 				operand: '/',
-				result: Number(state.number1) / Number(state.number2),
+				result: Number(action.payload.number1) / Number(action.payload.number2),
 				operations,
 			};
 		}
