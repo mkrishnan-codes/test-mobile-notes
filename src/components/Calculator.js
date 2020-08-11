@@ -1,69 +1,11 @@
 import React, { useReducer } from 'react';
-import { Text, View, StyleSheet, Image } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import { Card, TextInput, Button } from 'react-native-paper';
-const initialState = {
-	number1: '',
-	number2: '',
-	operand: '+',
-	result: '',
-	operations: 0,
-};
-const reducer = (state, action) => {
-	switch (action.type) {
-		case 'set_number1': {
-			return { ...state, number1: action.payload };
-		}
-		case 'set_number2': {
-			return { ...state, number2: action.payload };
-		}
-		case 'add': {
-			const operations = state.operations + 1;
-			return {
-				...state,
-				operand: '+',
-				result: Number(state.number1) + Number(state.number2),
-				operations,
-			};
-		}
-		case 'subtract': {
-			const operations = state.operations + 1;
+import { CalculatorReducer, initialState } from '../reducers/calculator-reducer';
 
-			return {
-				...state,
-				operand: '-',
-				result: Number(state.number1) - Number(state.number2),
-				operations,
-			};
-		}
-		case 'multiply': {
-			const operations = state.operations + 1;
 
-			return {
-				...state,
-				operand: '*',
-				result: Number(state.number1) * Number(state.number2),
-				operations,
-			};
-		}
-		case 'divide': {
-			const operations = state.operations + 1;
-
-			return {
-				...state,
-				operand: '/',
-				result: Number(state.number1) / Number(state.number2),
-				operations,
-			};
-		}
-		case 'reset': {
-			return { ...initialState, operations: state.operations };
-		}
-		default:
-			return state;
-	}
-};
 const Calculator = () => {
-	const [state, dispatch] = useReducer(reducer, initialState);
+	const [state, dispatch] = useReducer(CalculatorReducer, initialState);
 	return (
 		<View style={styles.container}>
 			<View>
@@ -125,7 +67,10 @@ const Calculator = () => {
 };
 const styles = StyleSheet.create({
 	container: {
-		height: 500,
+		padding: 20,
+		alignItems:'center',
+		flexDirection: 'column',
+
 	},
 	pad: {
 		padding: 20,

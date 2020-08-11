@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 
-import Calculator from './components/Calculator';
-import Notes from './components/Notes';
+import Calculator from './src/components/Calculator';
+import Notes from './src/components/Notes';
 export default function App() {
   const [mode, setMode] = useState('calculator');
 
@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
   card: {
     justifyContent:'center',
     alignItems:'center',
+    height:300,
   },
   buttonContainer: {
     flexDirection: 'row',
