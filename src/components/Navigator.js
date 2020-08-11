@@ -1,20 +1,26 @@
-import  React from 'react';
-import { BottomNavigation } from 'react-native-paper';
+import  React, { useState } from 'react';
+import { BottomNavigation,Text } from 'react-native-paper';
 
 import Calculator from './Calculator';
 import Notes from './Notes';
+const MusicRoute = () => <Text>Music</Text>;
 
+const AlbumsRoute = () => <Text>Albums</Text>;
+
+const RecentsRoute = () => <Text>Recents</Text>;
 
 const Navigator = () => {
-  const [index, setIndex] = React.useState(0);
+  const [index, setIndex] = useState(0);
   const [routes] = React.useState([
-    { key: 'calculator', title: 'Calculator', icon: 'calculator' },
-    { key: 'notes', title: 'Notes', icon: 'notes' },
+    { key: 'music', title: 'Music', icon: 'queue-music' },
+    { key: 'albums', title: 'Albums', icon: 'album' },
+    { key: 'recents', title: 'Recents', icon: 'history' },
   ]);
 
   const renderScene = BottomNavigation.SceneMap({
-    calculator: Calculator,
-    notes: Notes,
+    music: MusicRoute,
+    albums: AlbumsRoute,
+    recents: RecentsRoute,
   });
 
   return (
