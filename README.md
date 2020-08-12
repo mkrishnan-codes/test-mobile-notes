@@ -1,5 +1,7 @@
 APK file - https://drive.google.com/file/d/1UvkZXApRT6hwr7_FkxTriarF1_gN8KKr/view?usp=sharing
 
+May need to allow apk to install from anywhere in your phone to work correctly and ignore warnings as this is just a test app.
+
 
 ### Screenshots
 
