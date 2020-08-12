@@ -5,12 +5,17 @@ May need to allow apk to install from anywhere in your phone to work correctly a
 
 ## Commands
 If **yarn** is not installed, **npm run** can be used instead.
+
+
+### To install packages
+    yarn install
+    
 ### To run on android
     yarn android
 
 ### To run on ios
     yarn ios
-### To start metro bundler
+### To start metro bundler 
     yarn start
 
 ## Screenshots
