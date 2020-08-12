@@ -15,7 +15,10 @@ const Calculator = () => {
 	return (
 		<View style={styles.container}>
 			<View>
-				<Text style={[styles.head]}>Total operations performed: {state.operations}</Text>
+				<Text style={[styles.head]}>Calculator</Text>
+			</View>
+			<View>
+				<Text style={[styles.head2]}>Total operations performed: {state.operations}</Text>
 			</View>
 			<Card style={styles.pad}>
 				<View style={styles.inpContainer}>
@@ -58,11 +61,11 @@ const Calculator = () => {
           			</Button>
 				</View>
 				<View style={styles.inpContainer}>
-					<Button mode="contained" onPress={reset}>
+					<Button raised theme={{colors:{primary:'#c0392b'}}} mode="contained" onPress={reset}>
 						Reset
           			</Button>
 					{state.result ? (
-						<Text>Result: {state.result}</Text>
+						<Text style={styles.result}>Result: {state.result}</Text>
 					) : null}
 				</View>
 			</Card>
@@ -71,27 +74,34 @@ const Calculator = () => {
 };
 const styles = StyleSheet.create({
 	container: {
-		padding: 20,
+		padding: 5,
 		alignItems: 'center',
 		flexDirection: 'column',
-
+		height: '75%'
 	},
 	head: {
+		fontSize: 20,
+		paddingVertical: 20,
+		fontWeight: 'bold'
+	},
+	head2: {
 		fontSize: 18,
-		paddingVertical:20,
+		paddingVertical: 20,
 	},
 	pad: {
 		padding: 20,
+		height: 300,
 	},
 	midContainer: {
 		width: '30%',
 	},
-
+	result: {
+		fontSize: 16,
+		fontWeight: 'bold'
+	},
 	inpContainer: {
 		flexDirection: 'row',
 		padding: 10,
-		// width: '100%',
-
 		justifyContent: 'space-between',
 		alignItems: 'center',
 	},

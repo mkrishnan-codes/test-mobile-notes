@@ -8,6 +8,9 @@ const getObjWithId = (payload) => {
 }
 export const NotesReducer = (state, action) => {
 	switch (action.type.toLowerCase()) {
+		case 'load_new': {
+			return {...action.payload}
+		}
 		case 'active': {
 			const { active, completed, others } = state;
 			active.push(getObjWithId(action.payload))

@@ -1,14 +1,32 @@
-import React, { useReducer, useState } from 'react';
-import { Text, View, StyleSheet, FlatList, ScrollView } from 'react-native';
+import React, { useReducer, useState, useEffect } from 'react';
+import { Text, View, StyleSheet, ScrollView } from 'react-native';
 import { Card, TextInput, Button, DataTable, RadioButton } from 'react-native-paper';
 import { formReducer } from '../reducers/form-reducer';
 import { NotesReducer, initialState } from '../reducers/notes-reducer';
 import NoteRow from './NoteRow';
-
+import { getData, storeData } from '../utils/localstorage';
+const STORE_KEY = 'notes'
 const Notes = () => {
 	const [value, setValue] = useState('all');
 	const [form, dispatchForm] = useReducer(formReducer, { title: '', status: '' });
 	const [notes, dispatchNotes] = useReducer(NotesReducer, initialState);
+	useEffect(() => {
+		const getLocalData = async () => {
+			const data = await getData(STORE_KEY);
+			if (data) {
+				dispatchNotes({ type: 'load_new', payload: data })
+			}
+		}
+		getLocalData();
+	}, []);
+	useEffect(() => {
+		return () => {
+			const setLocalData = async () => {
+				await storeData(STORE_KEY, notes);
+			}
+			setLocalData();
+		}
+	}, [notes]);
 	const add = () => {
 		dispatchNotes({ type: form.status, payload: form })
 		dispatchForm({ type: 'reset' });
@@ -36,9 +54,9 @@ const Notes = () => {
 						Add Note
           			</Button>
 				</View>
-				{notes.showList && <React.Fragment><View style={styles.filters}>
+				{notes.showList && <ScrollView style={styles.scroller}><View style={styles.filters}>
 					<RadioButton.Group onValueChange={value => setValue(value)} value={value}>
-						<View>
+						<View style={styles.radio}>
 							<Text>All</Text>
 							<RadioButton value="all" />
 						</View>
@@ -52,27 +70,26 @@ const Notes = () => {
 						</View>
 					</RadioButton.Group>
 				</View>
-					<ScrollView style={styles.scroller}>
-						<DataTable>
-							<DataTable.Header>
-								<DataTable.Title>
-									Title
-          				</DataTable.Title>
-								<DataTable.Title>Status</DataTable.Title>
-							</DataTable.Header>
-							{
-								(value === 'active' || value === 'all') && notes['active'].map((note) => <NoteRow key={note.id} {...note} />)
-							}
-							{
-								(value === 'completed' || value === 'all') && notes['completed'].map((note) => <NoteRow key={note.id} {...note} />)
-							}
-							{
-								(value === 'all') && notes['others'].map((note) => <NoteRow key={note.id} {...note} />)
-							}
 
-						</DataTable>
-					</ScrollView>
-				</React.Fragment>
+					<DataTable>
+						<DataTable.Header>
+							<DataTable.Title>
+								Title
+          				</DataTable.Title>
+							<DataTable.Title>Status</DataTable.Title>
+						</DataTable.Header>
+						{
+							(value === 'active' || value === 'all') && notes['active'].map((note) => <NoteRow key={note.id} {...note} />)
+						}
+						{
+							(value === 'completed' || value === 'all') && notes['completed'].map((note) => <NoteRow key={note.id} {...note} />)
+						}
+						{
+							(value === 'all') && notes['others'].map((note) => <NoteRow key={note.id} {...note} />)
+						}
+
+					</DataTable>
+				</ScrollView>
 				}
 			</Card>
 		</View>
@@ -83,10 +100,9 @@ const styles = StyleSheet.create({
 		flexDirection: 'column',
 		width: '100%',
 		flex: 1,
-		padding: 20,
 	},
 	scroller: {
-		maxHeight: 350,
+		maxHeight: 240,
 	},
 	addNote: {
 		flexDirection: 'column',
@@ -99,22 +115,24 @@ const styles = StyleSheet.create({
 		width: '100%',
 
 	},
+	radio:{
+		alignItems:'center',
+	},
 	midContainer: {
 		width: '100%',
 		marginBottom: 20,
 	},
 
 	inpContainer: {
-		flexDirection: 'row',
-		padding: 15,
 		width: '100%',
-		justifyContent: 'space-between',
-		alignItems: 'center',
+		justifyContent: 'center',
+		alignItems: 'center'
 
 	},
 	head: {
-		fontSize: 18,
+		fontSize: 20,
 		paddingVertical: 20,
+		fontWeight: 'bold'
 	},
 	middle: {
 		display: 'flex',

@@ -1,52 +1,62 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, SafeAreaView } from 'react-native';
+import { View, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import { Button } from 'react-native-paper';
 
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import Calculator from './src/components/Calculator';
 import Notes from './src/components/Notes';
+const theme = {
+  ...DefaultTheme,
+  roundness: 2,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: '#003366',
+  },
+};
 export default function App() {
   const [mode, setMode] = useState('calculator');
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View style={styles.container}>
-        <View style={styles.card}>
-          {mode === 'calculator' ? <Calculator /> : <Notes />}
-        </View>
-        <View style={styles.buttonContainer}>
-          {mode === 'note' && <Button
-            mode="contained"
-            style={styles.buttonContainer}
-            onPress={() => setMode('calculator')}>
-            View calculator
+    <PaperProvider theme={theme}>
+      <SafeAreaView style={{ flex: 1 }}>
+        <ScrollView style={styles.container} contentContainerStyle={styles.scrollCont}>
+          <View style={styles.card}>
+            {mode === 'calculator' ? <Calculator /> : <Notes />}
+          </View>
+          <View style={styles.buttonContainer}>
+            {mode === 'note' && <Button
+              mode="text"
+              style={styles.buttonContainer}
+              onPress={() => setMode('calculator')}>
+              View calculator
           </Button>
-          }
-          {
-            mode === 'calculator' && <Button style={styles.buttonContainer} mode="contained" onPress={() => setMode('note')}>
-              View my notes
+            }
+            {
+              mode === 'calculator' && <Button style={styles.buttonContainer} mode="text" onPress={() => setMode('note')}>
+                View my notes
           </Button>}
-        </View>
-      </View>
+          </View>
+        </ScrollView>
 
-    </SafeAreaView>
+      </SafeAreaView>
+    </PaperProvider>
   );
 }
 
 const styles = StyleSheet.create({
+  scrollCont: {
+    flexDirection: 'column',
+    flex: 1,
+  },
   container: {
-    backgroundColor: '#ffcccc',
-    padding: 8,
+    padding: 20,
+
   },
   card: {
-    backgroundColor: '#ffcffc',
-
-    justifyContent: 'center',
     alignItems: 'center',
-    // height: 300,
+    flex: 1
   },
   buttonContainer: {
-    // width: '70%',
-    // position: 'absolute',
-    // bottom: 20
+
   },
   buttonView: {
     width: '50%',
